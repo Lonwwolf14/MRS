@@ -11,12 +11,22 @@ class Movie:
     def get_all():
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT id, title, genres FROM movies")
-        return [Movie(*row) for row in cursor.fetchall()]
+        cursor.execute("SELECT id, title, genres, vote_average FROM movies")
+        return [Movie(id, title, genres, rating) for id, title, genres, rating in cursor.fetchall()]
 
     @staticmethod
-    def get_user_ratings(user_id):
+    def get_movies_by_genre(genre):
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT movie_id, rating FROM ratings WHERE user_id = ?", (user_id,))
-        return dict(cursor.fetchall())
+        cursor.execute("SELECT id, title, genres, vote_average FROM movies WHERE genres LIKE ?", (f'%{genre}%',))
+        return [Movie(id, title, genres, rating) for id, title, genres, rating in cursor.fetchall()]
+
+    @staticmethod
+    def get_movie_details(movie_id):
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT id, title, genres, vote_average FROM movies WHERE id = ?", (movie_id,))
+        row = cursor.fetchone()
+        if row:
+            return Movie(*row)
+        return None

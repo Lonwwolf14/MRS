@@ -1,29 +1,72 @@
-<!-- templates/index.html -->
-
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Movie Recommendation System</h1>
-<label for="genre">Enter Genre (optional):</label>
-<input type="text" id="genre">
-<button onclick="getRecommendations()">Get Recommendations</button>
-<h2>Recommendations:</h2>
-<ul id="recommendations"></ul>
-
-<script>
-function getRecommendations() {
-    const genre = document.getElementById('genre').value;
-    fetch(`/recommendations?genre=${genre}`)
-        .then(response => response.json())
-        .then(data => {
-            const recommendationsList = document.getElementById('recommendations');
-            recommendationsList.innerHTML = '';
-            data.forEach(movie => {
-                const li = document.createElement('li');
-                li.textContent = `${movie.title} (Rating: ${movie.rating})`;
-                recommendationsList.appendChild(li);
-            });
-        });
-}
-</script>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Movie Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container fade-in">
+        <header>
+            <h1 class="pulse">Advanced Movie Recommendation System</h1>
+        </header>
+        <main>
+            <section class="info-section slide-in">
+                <h2>How It Works</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-film"></i>
+                        <h3>Enter a Movie</h3>
+                        <p>Start by entering a movie title you enjoy.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-theater-masks"></i>
+                        <h3>Choose a Genre</h3>
+                        <p>Select your preferred genre for recommendations.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Set Minimum Rating</h3>
+                        <p>Choose the minimum rating for recommended movies.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-list-ol"></i>
+                        <h3>Number of Recommendations</h3>
+                        <p>Decide how many movie suggestions you want to see.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="input-section slide-in">
+                <form id="recommendationForm">
+                    <input type="text" id="movieTitle" placeholder="Enter a movie title" required class="transition-all">
+                    <select id="genre" required class="transition-all">
+                        <option value="">Select a genre</option>
+                        <option value="Action">Action</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Animation">Animation</option>
+                    </select>
+                    <input type="number" id="minRating" placeholder="Minimum rating" min="0" max="10" step="0.1" required class="transition-all">
+                    <input type="number" id="numRecommendations" placeholder="Number of recommendations" min="1" max="20" value="10" required class="transition-all">
+                    <button type="submit" id="getRecommendations" class="transition-all">Get Recommendations</button>
+                </form>
+            </section>
+            <section id="results" style="display: none;">
+                <h2 class="slide-in">Recommended Movies</h2>
+                <div id="recommendations" class="recommendations-grid"></div>
+            </section>
+        </main>
+        <footer class="fade-in">
+            <p>&copy; 2024 Advanced Movie Recommendation System</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

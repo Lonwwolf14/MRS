@@ -1,63 +1,69 @@
-# app/services/recommendation_service.py
-
+import logging
 from app.data_processing.demographic_filtering import get_top_movies
+from app.data_processing.content_based_filtering import prepare_content_based_data, get_recommendations as get_content_recommendations
 from app.models.movie import Movie
 
-def get_recommendations(genre=None, n=10, start_year=None, end_year=None, min_rating=0):
-    # Use demographic filtering for all recommendations
-    top_movies = get_top_movies(n)
-    
-    # Convert DataFrame rows to Movie objects
+logging.basicConfig(level=logging.INFO)
+
+df, cosine_sim, indices = prepare_content_based_data()
+
+def get_recommendations(genre=None, n=10, min_rating=0):
+    top_movies = get_top_movies(n * 2)
+    logging.info(f"Retrieved {len(top_movies)} top movies")
+
+    if top_movies.empty:
+        logging.warning("No top movies retrieved")
+        return []
+
     recommendations = [
         Movie(
-            id=row['id'], 
-            title=row['title'], 
-            genres=row.get('genres', ''),  # Use empty string if genres not available
-            rating=row['vote_average']
-        ) 
+            id=row['id'],
+            title=row['title'],
+            genres=row.get('genres', ''),
+            rating=row.get('vote_average', 0)
+        )
         for _, row in top_movies.iterrows()
     ]
-    
-    # Apply additional filters if specified
+
+    logging.info(f"Created {len(recommendations)} movie objects")
+
     if genre:
         recommendations = [movie for movie in recommendations if genre.lower() in movie.genres.lower()]
-    if start_year:
-        recommendations = [movie for movie in recommendations if movie.year and movie.year >= start_year]
-    if end_year:
-        recommendations = [movie for movie in recommendations if movie.year and movie.year <= end_year]
+        logging.info(f"{len(recommendations)} movies after genre filter")
+
     if min_rating:
         recommendations = [movie for movie in recommendations if movie.rating >= min_rating]
-    
-    return recommendations[:n]  # Ensure we return at most n recommendations
+        logging.info(f"{len(recommendations)} movies after rating filter")
 
-# Content-based filtering code (commented out)
-"""
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
+    recommendations.sort(key=lambda x: x.rating, reverse=True)
+    final_recommendations = recommendations[:n]
+    logging.info(f"Returning {len(final_recommendations)} recommendations")
 
-def content_based_recommendations(user_id, n=5):
-    movies = Movie.get_all()
-    user_ratings = Movie.get_user_ratings(user_id)
+    if not final_recommendations:
+        logging.warning("No recommendations found, returning top rated movies")
+        return [Movie(id=row['id'], title=row['title'], genres=row.get('genres', ''), rating=row.get('vote_average', 0))
+                for _, row in top_movies.head(n).iterrows()]
 
-    # Create a matrix of movie genres
-    genres = [movie.genres for movie in movies]
-    vectorizer = CountVectorizer()
-    genre_matrix = vectorizer.fit_transform(genres)
+    return final_recommendations
 
-    # Calculate cosine similarity between movies
-    cosine_sim = cosine_similarity(genre_matrix, genre_matrix)
+def get_content_based_recommendations(title, n=10):
+    content_recommendations = get_content_recommendations(title, df, cosine_sim, indices)
+    logging.info(f"Retrieved {len(content_recommendations)} content-based recommendations")
 
-    # Get the indices of movies the user has rated
-    rated_movie_indices = [movie.id - 1 for movie in movies if movie.id in user_ratings]
+    if content_recommendations.empty:
+        logging.warning(f"No content-based recommendations found for '{title}'")
+        return []
 
-    # Calculate the average similarity score for each movie
-    sim_scores = cosine_sim[rated_movie_indices].mean(axis=0)
+    recommendations = [
+        Movie(
+            id=df.loc[idx, 'id'],
+            title=df.loc[idx, 'title'],
+            genres=df.loc[idx, 'genres'],
+            rating=df.loc[idx, 'vote_average']
+        )
+        for idx in content_recommendations.index[:n]
+        if idx in df.index
+    ]
 
-    # Get the indices of the top N similar movies
-    top_indices = sim_scores.argsort()[::-1][:n]
-
-    # Return the recommended movies
-    recommendations = [movies[i] for i in top_indices if movies[i].id not in user_ratings]
+    logging.info(f"Returning {len(recommendations)} content-based recommendations")
     return recommendations
-"""

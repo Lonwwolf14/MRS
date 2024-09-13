@@ -1,40 +1,44 @@
-# app/data_processing/demographic_filtering.py
-
 import pandas as pd
 import numpy as np
+from config.config import Config
 
-def load_and_process_data(file_path):
-    # Load the data
-    df = pd.read_csv(file_path)
+def load_and_process_data():
+    df1 = pd.read_csv(Config.CREDITS_PATH, low_memory=False)
+    df2 = pd.read_csv(Config.MOVIES_METADATA_PATH, low_memory=False)
+
+    df1['id'] = df1['id'].astype(str)
+    df2['id'] = df2['id'].astype(str)
+
+    df = pd.merge(df2, df1, on='id', how='inner')
     
-    # Ensure required columns are present
-    required_columns = ['id', 'title', 'vote_average', 'vote_count']
-    if not all(column in df.columns for column in required_columns):
-        raise ValueError("Missing required columns in the dataset")
+    # Select columns flexibly
+    id_col = 'id'
+    title_col = 'original_title' if 'original_title' in df.columns else 'title'
+    vote_count_col = 'vote_count'
+    vote_average_col = 'vote_average'
+    
+    df = df[[id_col, title_col, vote_count_col, vote_average_col, 'cast', 'crew']]
+    df = df.rename(columns={title_col: 'title'})
 
-    # Calculate C
+    # Rest of the function remains the same
     C = df['vote_average'].mean()
-    
-    # Calculate m
     m = df['vote_count'].quantile(0.9)
-    
-    # Filter movies based on m
-    qualified_movies = df.copy().loc[df['vote_count'] >= m]
-    
+
+    q_movies = df.copy().loc[df['vote_count'] >= m]
+
     def weighted_rating(x, m=m, C=C):
         v = x['vote_count']
         R = x['vote_average']
         return (v/(v+m) * R) + (m/(m+v) * C)
-    
-    # Calculate score
-    qualified_movies['score'] = qualified_movies.apply(weighted_rating, axis=1)
-    
-    # Sort movies based on score
-    qualified_movies = qualified_movies.sort_values('score', ascending=False)
-    
-    return qualified_movies[['id', 'title', 'vote_count', 'vote_average', 'score']]
+
+    q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
+    q_movies = q_movies.sort_values('score', ascending=False)
+
+    return q_movies[['id', 'title', 'vote_count', 'vote_average', 'score']]
+
+
+
 
 def get_top_movies(n=10):
-    file_path = 'data/movies_metadata.csv'  # Adjust this path as needed
-    qualified_movies = load_and_process_data(file_path)
+    qualified_movies = load_and_process_data()
     return qualified_movies.head(n)
