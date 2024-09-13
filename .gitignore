@@ -12,7 +12,8 @@ instance/
 .webassets-cache
 
 # SQLite database
-*.db
+data/*.db
+data/*.csv
 
 # OS generated files
 .DS_Store

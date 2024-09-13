@@ -1,101 +1,121 @@
 # Movie Recommendation System
 
-This is a simple movie recommendation system built with Flask and SQLite. It uses content-based filtering to recommend movies based on genre similarity.
+Welcome to the Movie Recommendation System! This simple yet powerful application uses content-based filtering to suggest movies based on your favorite genres. Built with Flask, this system offers a web interface and a RESTful API to interact with movie recommendations easily.
+
+## Quick Start
+
+Follow these steps to get up and running with the Movie Recommendation System:
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/movie-recommendation-system.git
+cd movie-recommendation-system
+```
+
+### Set Up Virtual Environment
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### Install Dependencies
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Set Up the Database
+
+Initialize the SQLite database:
+
+```bash
+python scripts/database_setup.py
+```
+
+### Run the Application
+
+Start the Flask application:
+
+```bash
+python run.py
+```
+
+Navigate to [http://localhost:5000](http://localhost:5000) in your browser to start using the app.
 
 ## Features
 
-- Content-based movie recommendations
-- Simple web interface for user interaction
-- SQLite database for storing movie and user rating data
-- RESTful API endpoint for getting recommendations
+- **Content-Based Movie Recommendations:** Get tailored movie suggestions based on your genre preferences.
+- **Web Interface:** User-friendly interface for easy interaction with the recommendation system.
+- **SQLite Database:** Efficient storage of movie and rating data.
+- **RESTful API:** Access recommendations programmatically.
 
-## Prerequisites
+## How to Use
 
-Before you begin, ensure you have met the following requirements:
-
-- Python 3.7 or higher
-- pip (Python package manager)
-- Git (for cloning the repository)
-
-## Setup
-
-Follow these steps to get your development environment set up:
-
-1. Clone the repository:
-
-2. Create a virtual environment:
-
-
-3. Activate the virtual environment:
-- On Windows:
-  ```
-  venv\Scripts\activate
-  ```
-- On macOS and Linux:
-  ```
-  source venv/bin/activate
-  ```
-
-4. Install dependencies:
-
-5. Set up the database:
-
-6. Run the application:
-
-## Usage
-
-1. Open your web browser and visit `http://localhost:5000`.
-2. Enter a user ID in the input field (use 1 or 2 for the sample data).
-3. Click "Get Recommendations" to see movie recommendations for that user.
+1. **Enter a Genre:** Use the web interface to input your preferred genre.
+2. **Get Recommendations:** Click the "Get Recommendations" button to view a list of suggested movies.
 
 ## API Usage
 
-You can also get recommendations programmatically using the API:
+Retrieve movie recommendations via the RESTful API:
 
-Example:
+### Endpoint
 
-This will return a JSON array of recommended movies for user 1, with a maximum of 5 recommendations.
+**GET** `/recommendations?genre={genre}&n={number}`
+
+- **Parameters:**
+  - `genre`: The genre for which you want recommendations (e.g., `action`, `comedy`).
+  - `n`: The number of recommendations to return.
+
+- **Example Request:**
+
+  ```bash
+  curl "http://localhost:5000/recommendations?genre=action&n=5"
+  ```
 
 ## Project Structure
 
-- `app/`: Main application package
-  - `models/`: Database models
-  - `routes/`: API route definitions
-  - `services/`: Business logic, including recommendation algorithm
-  - `utils/`: Utility functions, including database operations
-- `config/`: Configuration files
-- `data/`: Directory to store the SQLite database
-- `scripts/`: Utility scripts, including database setup
-- `static/`: Static files for the frontend
-- `templates/`: HTML templates for the frontend
-- `tests/`: Unit and integration tests
+Here's an overview of the project structure:
 
-## Running Tests
-
-To run the test suite, use the following command:
+```
+movie_recommendation_system/
+├── app/
+│   ├── models/          # Database models
+│   ├── routes/          # API routes
+│   ├── services/        # Recommendation logic
+│   └── utils/           # Utility functions
+├── config/              # Configuration files
+├── data/                # Data files
+├── scripts/             # Setup and utility scripts
+├── static/              # Static files (CSS, JS)
+├── templates/           # HTML templates
+└── tests/               # Test cases
+```
 
 ## Contributing
 
-Contributions to this project are welcome. Please follow these steps:
+We welcome contributions to improve the Movie Recommendation System. Here’s how you can contribute:
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature-name`)
-3. Make your changes
-4. Commit your changes (`git commit -am 'Add some feature'`)
-5. Push to the branch (`git push origin feature/your-feature-name`)
-6. Create a new Pull Request
+1. **Fork the Repository**
+2. **Create a New Branch**
+3. **Make Your Changes**
+4. **Commit Your Changes**
+5. **Push and Create a Pull Request**
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contact
+## Questions?
 
-If you have any questions or feedback, please contact:
+Feel free to reach out:
 
-Your Name - youremail@example.com
+**Your Name**  
+[youremail@example.com](mailto:youremail@example.com)
 
-Project Link: https://github.com/yourusername/movie-recommendation-system
-
-
-
+---

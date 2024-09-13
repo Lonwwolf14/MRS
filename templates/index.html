@@ -1,10 +1,29 @@
+<!-- templates/index.html -->
+
 {% extends "base.html" %}
 
 {% block content %}
 <h1>Movie Recommendation System</h1>
-<label for="user-id">Enter User ID:</label>
-<input type="number" id="user-id" min="1">
-<button onclick="getRecommendations(document.getElementById('user-id').value)">Get Recommendations</button>
+<label for="genre">Enter Genre (optional):</label>
+<input type="text" id="genre">
+<button onclick="getRecommendations()">Get Recommendations</button>
 <h2>Recommendations:</h2>
 <ul id="recommendations"></ul>
+
+<script>
+function getRecommendations() {
+    const genre = document.getElementById('genre').value;
+    fetch(`/recommendations?genre=${genre}`)
+        .then(response => response.json())
+        .then(data => {
+            const recommendationsList = document.getElementById('recommendations');
+            recommendationsList.innerHTML = '';
+            data.forEach(movie => {
+                const li = document.createElement('li');
+                li.textContent = `${movie.title} (Rating: ${movie.rating})`;
+                recommendationsList.appendChild(li);
+            });
+        });
+}
+</script>
 {% endblock %}

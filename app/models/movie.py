@@ -1,10 +1,11 @@
 from app.utils.database import get_db
 
 class Movie:
-    def __init__(self, id, title, genres):
+    def __init__(self, id, title, genres, rating=None):
         self.id = id
         self.title = title
         self.genres = genres
+        self.rating = rating
 
     @staticmethod
     def get_all():
