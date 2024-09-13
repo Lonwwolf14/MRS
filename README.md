@@ -78,6 +78,10 @@ Retrieve movie recommendations via the RESTful API:
   curl "http://localhost:5000/recommendations?genre=action&n=5"
   ```
 
+## Dataset
+
+This project utilizes the [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=movies_metadata.csv) from Kaggle. It contains comprehensive movie metadata to help drive the recommendation system.
+
 ## Project Structure
 
 Here's an overview of the project structure:
@@ -117,5 +121,3 @@ Feel free to reach out:
 
 **Your Name**  
 [youremail@example.com](mailto:youremail@example.com)
-
----
