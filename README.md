@@ -1,6 +1,6 @@
 # 🎬 Movie Recommendation System
 
-Welcome to the **Movie Recommendation System**! 🍿 This powerful application leverages content-based filtering to recommend movies based on your preferred genres. Built with Flask, it offers a smooth web interface and a RESTful API for easy interaction with personalized movie recommendations.
+Welcome to the **Movie Recommendation System**! 🍿 This powerful application leverages content-based filtering to recommend movies based on your preferred genres and movie names. Built with Flask, it offers a smooth web interface and a RESTful API for easy interaction with personalized movie recommendations.
 
 ## 🚀 Quick Start
 
@@ -44,7 +44,7 @@ Visit [http://localhost:5000](http://localhost:5000) in your browser to start ex
 
 ## ✨ Features
 
-- 🎯 **Smart Recommendations**: Get personalized movie suggestions based on your favorite genres.
+- 🎯 **Smart Recommendations**: Get personalized movie suggestions based on your favorite genres and movie names.
 - 🖥️ **Intuitive Web Interface**: A user-friendly platform for seamless interaction.
 - 📊 **Efficient Data Storage**: Utilizes an SQLite database for fast access to movie and rating data.
 - 🔗 **Developer-Friendly API**: Easily access recommendations programmatically.
@@ -53,21 +53,40 @@ Visit [http://localhost:5000](http://localhost:5000) in your browser to start ex
 
 ## 🎮 How to Use
 
-- **Choose Your Genre**: Enter your preferred genre through the web interface.
+- **Choose Your Genre or Movie Name**: Enter your preferred genre or movie name through the web interface.
 - **Discover Movies**: Click "Get Recommendations" to view a curated list of suggested films.
 
 ---
 
+## 🛠️ API Usage
+
+Access movie recommendations via API:
+
+### Endpoint
+
+```
+GET /recommendations?genre={genre}&name={movie_name}&n={number}
+```
+
 ### Parameters:
 
 - `genre`: The genre of movies you are interested in (e.g., action, comedy).
+- `name`: The name of the movie you want similar recommendations for.
 - `n`: The number of recommendations you want to receive.
 
-### Example Request:
+### Example Requests:
 
-```bash
-curl "http://localhost:5000/recommendations?genre=action&n=5"
-```
+1. **Based on Genre**:
+
+    ```bash
+    curl "http://localhost:5000/recommendations?genre=action&n=5"
+    ```
+
+2. **Based on Movie Name**:
+
+    ```bash
+    curl "http://localhost:5000/recommendations?name=Inception&n=5"
+    ```
 
 ---
 
@@ -119,7 +138,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Feel free to reach out to:
 
 **Your Name**  
-[parabraviraj142730@gmail.com](mailto:youremail@example.com)
+[youremail@example.com](mailto:youremail@example.com)
 
 ---
 
