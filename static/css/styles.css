@@ -1,0 +1,144 @@
+body {
+    background-color: #141414;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.movie-card {
+    background-color: #181818;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.movie-info {
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+}
+
+.movie-card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.movie-card p {
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0 0;
+}
+
+.movie-info-card {
+    background: #181818;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.movie-info-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-info-card h3 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.movie-info-card p {
+    color: #999;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.movie-info-card img {
+    border-radius: 4px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Netflix-like button */
+.btn-netflix {
+    background-color: #e50914;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-netflix:hover {
+    background-color: #f40612;
+}
+
+/* Netflix-like header */
+.header {
+    background-color: #0c0c0c;
+    padding: 20px 0;
+}
+
+.header .logo {
+    color: #e50914;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Netflix-like navigation */
+.nav {
+    margin-top: 20px;
+}
+
+.nav a {
+    color: #e5e5e5;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: #ffffff;
+}

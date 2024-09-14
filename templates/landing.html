@@ -3,14 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Movie Recommender</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <title>MovieFlix - Your Movie Recommendation Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="landing-container">
-        <h1 class="fade-in">Welcome to Movie Recommender</h1>
-        <p class="slide-in">Discover your next favorite movie with our advanced recommendation system!</p>
-        <a href="{{ url_for('recommendations.index') }}" class="cta-button pulse">Get Started</a>
-    </div>
+    <header>
+        <nav>
+            <div class="logo">MovieFlix</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#movies">Movies</a></li>
+                <li><a href="#tv-shows">TV Shows</a></li>
+                <li><a href="#my-list">My List</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Welcome to MovieFlix</h1>
+            <p>Discover your next favorite movie or TV show</p>
+        </section>
+
+        <section id="search">
+            <input type="text" id="movieTitle" placeholder="Search for a movie or TV show">
+            <button id="searchButton">Search</button>
+        </section>
+
+        <section id="recommendations">
+            <h2>Recommended for You</h2>
+            <div class="movie-grid" id="recommendationGrid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MovieFlix. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

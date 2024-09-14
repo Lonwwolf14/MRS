@@ -6,33 +6,37 @@
     <title>Advanced Movie Recommendation System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/abstract-theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-palette.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container fade-in">
         <header>
-            <h1 class="pulse">Advanced Movie Recommendation System</h1>
+            <h1 class="pulse">CineMatch</h1>
+            <p class="tagline">Your Personal Movie Recommendation Engine</p>
         </header>
         <main>
             <section class="info-section slide-in">
                 <h2>How It Works</h2>
                 <div class="info-grid">
-                    <div class="info-card">
+                    <div class="info-card hover-effect">
                         <i class="fas fa-film"></i>
                         <h3>Enter a Movie</h3>
                         <p>Start by entering a movie title you enjoy.</p>
                     </div>
-                    <div class="info-card">
+                    <div class="info-card hover-effect">
                         <i class="fas fa-theater-masks"></i>
                         <h3>Choose a Genre</h3>
                         <p>Select your preferred genre for recommendations.</p>
                     </div>
-                    <div class="info-card">
+                    <div class="info-card hover-effect">
                         <i class="fas fa-star"></i>
                         <h3>Set Minimum Rating</h3>
                         <p>Choose the minimum rating for recommended movies.</p>
                     </div>
-                    <div class="info-card">
+                    <div class="info-card hover-effect">
                         <i class="fas fa-list-ol"></i>
                         <h3>Number of Recommendations</h3>
                         <p>Decide how many movie suggestions you want to see.</p>
@@ -40,8 +44,8 @@
                 </div>
             </section>
             <section class="input-section slide-in">
-                <form id="recommendationForm">
-                    <input type="text" id="movieTitle" placeholder="Enter a movie title" required class="transition-all">
+                <form id="recommendationForm" class="modern-form">
+                    <input type="text" id="movieTitle" placeholder="Enter a movie title (optional)" class="transition-all">
                     <select id="genre" required class="transition-all">
                         <option value="">Select a genre</option>
                         <option value="Action">Action</option>
@@ -55,16 +59,16 @@
                     </select>
                     <input type="number" id="minRating" placeholder="Minimum rating" min="0" max="10" step="0.1" required class="transition-all">
                     <input type="number" id="numRecommendations" placeholder="Number of recommendations" min="1" max="20" value="10" required class="transition-all">
-                    <button type="submit" id="getRecommendations" class="transition-all">Get Recommendations</button>
+                    <button type="submit" id="getRecommendations" class="transition-all pulse-on-hover">Get Recommendations</button>
                 </form>
             </section>
-            <section id="results" style="display: none;">
+            <section id="results" class="fade-in" style="display: none;">
                 <h2 class="slide-in">Recommended Movies</h2>
                 <div id="recommendations" class="recommendations-grid"></div>
             </section>
         </main>
         <footer class="fade-in">
-            <p>&copy; 2024 Advanced Movie Recommendation System</p>
+            <p>© 2024 CineMatch - Advanced Movie Recommendation System</p>
         </footer>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
