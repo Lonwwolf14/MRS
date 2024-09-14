@@ -119,7 +119,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Feel free to reach out to:
 
 **Your Name**  
-[youremail@example.com](mailto:youremail@example.com)
+[parabraviraj142730@gmail.com](mailto:youremail@example.com)
 
 ---
 
