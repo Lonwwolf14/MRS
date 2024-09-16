@@ -30,3 +30,10 @@ class Movie:
         if row:
             return Movie(*row)
         return None
+
+    @staticmethod
+    def get_movies_by_title(title):
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT id, title, genres, vote_average FROM movies WHERE title LIKE ?", (f'%{title}%',))
+        return [Movie(id, title, genres, rating) for id, title, genres, rating in cursor.fetchall()]
