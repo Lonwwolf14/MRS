@@ -136,4 +136,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === modal) document.body.removeChild(modal);
         });
     }
+
+    function showMovieDetails(movie) {
+        const modal = document.getElementById('movieModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalRating = document.getElementById('modalRating').querySelector('span');
+        const modalGenres = document.getElementById('modalGenres').querySelector('span');
+        const modalOverview = document.getElementById('modalOverview').querySelector('span');
+
+        modalImage.src = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'path/to/placeholder-image.jpg';
+        modalTitle.textContent = movie.title;
+        modalRating.textContent = movie.vote_average.toFixed(1);
+        modalGenres.textContent = movie.genres.join(', ');
+        modalOverview.textContent = movie.overview;
+
+        modal.style.display = 'flex';
+    }
+
+    // Add event listener to close the modal
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('movieModal').style.display = 'none';
+    });
 });

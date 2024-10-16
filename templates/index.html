@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Movie Recommendation System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/abstract-theme.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-palette.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/abstract-theme.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-palette.css') }}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
@@ -45,7 +44,7 @@
             </section>
             <section class="input-section slide-in">
                 <form id="recommendationForm" class="modern-form">
-                    <input type="text" id="movieTitle" placeholder="Enter a movie title (optional)" class="transition-all">
+                    <input type="text" id="movieTitle" placeholder="Enter a movie title" class="transition-all">
                     <select id="genre" required class="transition-all">
                         <option value="">Select a genre</option>
                         <option value="Action">Action</option>
@@ -66,6 +65,19 @@
                 <h2 class="slide-in">Recommended Movies</h2>
                 <div id="recommendations" class="recommendations-grid"></div>
             </section>
+            <!-- Add this modal structure -->
+            <div id="movieModal" class="movie-modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <img id="modalImage" src="" alt="Movie Poster">
+                    <div class="modal-info">
+                        <h2 id="modalTitle"></h2>
+                        <p id="modalRating"><strong>Rating:</strong> <span></span></p>
+                        <p id="modalGenres"><strong>Genres:</strong> <span></span></p>
+                        <p id="modalOverview"><strong>Overview:</strong> <span></span></p>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="fade-in">
             <p>© 2024 CineMatch - Advanced Movie Recommendation System</p>
